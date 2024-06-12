@@ -1,5 +1,5 @@
-name: "Test & Deployworkflow"
-on: push
+name: "Test & Deploy workflow"
+on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
