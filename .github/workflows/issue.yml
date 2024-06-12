@@ -8,5 +8,11 @@ jobs:
         run: echo "${{ toJSON(github.event.issue.title) }}"
       - name: "Show issue body"
         run: echo "${{ toJSON(github.event.issue.body) }}"
+      - name: "Show double run"
+        run: |
+          echo "${{ toJSON(github.event.issue.title) }}"
+          echo "${{ toJSON(github.event.issue.body) }}"
+      - name: "Show both run"
+        run: echo "${{ toJSON(github.event.issue.title) }} : ${{ toJSON(github.event.issue.body) }}"
       - name: "Show all"
         run: echo "${{ toJSON(github) }}"
