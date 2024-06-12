@@ -1,8 +1,8 @@
-name: "Issue workflow"
+name: "Issues workflow"
 on: [issues]
 jobs:
-    test:
-        runs-on: ubuntu-latest
-        steps:
-            - name: "Show issue info"
-              run: echo "${{ toJSON(github) }}"
+  issuer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Show issue info"
+        run: echo "${{ toJSON(github) }}"
