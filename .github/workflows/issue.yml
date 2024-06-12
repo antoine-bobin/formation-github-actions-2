@@ -1,0 +1,20 @@
+name: "Issue workflow"
+on: [issues]
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: "Get Code"
+                uses: actions/checkout@v4
+            - name: "Change node version"
+                uses: actions/setup-node@v4
+                with:
+                    node-version: 20
+            - name: "Install dependencies"
+                run: npm ci
+            - name: "Lint"
+                run: npm run lint
+            - name: "Run tests"
+                run: npm test
+            - name: "Finish"
+                run: echo "Done"
