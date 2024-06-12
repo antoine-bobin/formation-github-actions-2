@@ -4,5 +4,9 @@ jobs:
   issuer:
     runs-on: ubuntu-latest
     steps:
-      - name: "Show issue info"
+      - name: "Show issue title"
+        run: echo "${{ toJSON(github.event.issue.title) }}"
+      - name: "Show issue body"
+        run: echo "${{ toJSON(github.event.issue.body) }}"
+      - name: "Show all"
         run: echo "${{ toJSON(github) }}"
