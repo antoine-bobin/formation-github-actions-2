@@ -20,12 +20,13 @@ jobs:
 
             - name: "Merge master into develop"
               run: |
-                git config --global user.name 'allotomation' && \
+                (git config --global user.name 'allotomation' && \
                 git config --global user.email 'serviceaccount.allotomation@allopneus.com' && \
                 git merge origin/main --no-ff && \
-                git push origin develop && \
-                echo "Merge done"
-
+#                git push origin develop && \
+#                echo "Merge done"
+                git push origin develop) ||
+                echo "MERGE DONE"
 #            - name: "Notify Teams"
 #              if: steps.changed-files-specific.outputs.added_files != ''
 #              # JSON format: https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/connectors-using
