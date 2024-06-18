@@ -35,4 +35,3 @@ jobs:
 #                {"@type":"MessageCard","@context":"https://schema.org/extensions","summary":"Nouvel article", "title": "Nouvel article : ${{ env.article_title }}", "themeColor":"00ff00","potentialAction":[{"@type":"OpenUri","name":"Voir le nouvel article","targets":[{"os":"default","uri":"https://blog-tech.allopneus.com/posts/${{ env.article_basename }}/"}]}]}
 #                EOF
 #                curl -X POST https://allopneus.webhook.office.com/webhookb2/275890a4-0e3f-4010-80ae-ade67f9c71f6@ac205d14-f9ff-4d7a-8129-aa50d3988c68/IncomingWebhook/a07bf551be2648c0ac520524ec536c4b/dfed3653-db39-4796-ba50-2af3d4254b4d --header 'Content-Type: application/json' -d @message.json
-#
