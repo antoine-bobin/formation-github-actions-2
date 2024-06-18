@@ -7,6 +7,9 @@ on:
 jobs:
   output:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        branch: ["develop"]
     steps:
 #      - name: "Output github"
 #        run: echo "${{ toJSON(github) }}"
@@ -24,20 +27,14 @@ jobs:
           git config --global user.email 'serviceaccount.allotomation@allopneus.com' && \
           git merge origin/main --no-ff && \
           gti push origin develop
-      - name: "Success"
-        if: success()
-        run: echo "MERGE DONE SUCCESSFULLY"
       - name: "Failure"
-        if: failure()
         run: echo "MERGE FAILED"
-#      - name: "Notify Teams"
-#        if: steps.changed-files-specific.outputs.added_files != ''
-#        # JSON format: https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/connectors-using
-#        run: |
-#          echo "Detect new article: ${{ steps.changed-files-specific.outputs.added_files }}"
-#          echo "Notify Teams"
-#          cat << EOF > message.json
-#          {"@type":"MessageCard","@context":"https://schema.org/extensions","summary":"Nouvel article", "title": "Nouvel article : ${{ env.article_title }}", "themeColor":"00ff00","potentialAction":[{"@type":"OpenUri","name":"Voir le nouvel article","targets":[{"os":"default","uri":"https://blog-tech.allopneus.com/posts/${{ env.article_basename }}/"}]}]}
-#          EOF
-#          curl -X POST https://allopneus.webhook.office.com/webhookb2/275890a4-0e3f-4010-80ae-ade67f9c71f6@ac205d14-f9ff-4d7a-8129-aa50d3988c68/IncomingWebhook/a07bf551be2648c0ac520524ec536c4b/dfed3653-db39-4796-ba50-2af3d4254b4d --header 'Content-Type: application/json' -d @message.json
-
+      - name: "Notify failure on Teams channel"
+        if: failure()
+        # JSON format: https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/connectors-using
+        run: |
+          echo "Notify failure on Teams channel"
+          cat << EOF > message.json
+          {"@type":"MessageCard","@context":"https://schema.org/extensions","summary":"Fail to merge master into ${{ matrix.branch }} for hevea-stations-api", "title": "hevea-stations-api failed to merge master into ${{ matrix.branch }}", "themeColor":"00ff00","potentialAction":[{"@type":"OpenUri","name":"Voir le lien","targets":[{"os":"default","uri":"https://rick.roll"}]}]}
+          EOF
+          curl -X POST https://allopneus.webhook.office.com/webhookb2/e4228484-8970-4176-95a0-719bc0f259d8@ac205d14-f9ff-4d7a-8129-aa50d3988c68/IncomingWebhook/e02e84a93e124c9fa768a831f267d3c6/0f9dd978-347f-4955-8e79-48bd2ae1c980 --header 'Content-Type: application/json' -d @message.json
