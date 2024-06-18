@@ -20,7 +20,7 @@ jobs:
 
             - name: "Merge master into develop"
               run: |
-                git config --global user.name 'allotomation'
+                git config --global user.name 'allotomation' && \
                 git config --global user.email 'serviceaccount.allotomation@allopneus.com'
                 git merge origin/main --no-ff
                 git push origin develop
