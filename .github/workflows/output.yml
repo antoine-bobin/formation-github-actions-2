@@ -20,10 +20,15 @@ jobs:
 
             - name: "Merge master into develop"
               run: |
+                echo "LEVEL 1"
                 git config --global user.name 'allotomation'
+                echo "LEVEL 2"
                 git config --global user.email 'serviceaccount.allotomation@allopneus.com'
+                echo "LEVEL 3"
                 git merge origin/main --no-ff
+                echo "LEVEL 4"
                 git push origin develop
+                echo "LEVEL 5"
 
 #            - name: "Notify Teams"
 #              if: steps.changed-files-specific.outputs.added_files != ''
