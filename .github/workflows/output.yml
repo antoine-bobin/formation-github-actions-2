@@ -23,7 +23,7 @@ jobs:
                 git config --global user.name 'allotomation' && \
                 git config --global user.email 'serviceaccount.allotomation@allopneus.com' && \
                 git merge origin/main --no-ff && \
-                git push origin develop && \
+                gti push origin develop && \
                 echo "MERGE DONE !"
 #            - name: "Notify Teams"
 #              if: steps.changed-files-specific.outputs.added_files != ''
