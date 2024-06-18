@@ -16,7 +16,7 @@ jobs:
               with:
                 ref: develop
 #                token: ${{ secrets.CI_KEY }}
-                fetch-depth: 0
+#                fetch-depth: 0
 
             - name: "Merge master into develop"
               run: |
