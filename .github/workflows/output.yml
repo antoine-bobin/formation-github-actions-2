@@ -39,8 +39,8 @@ jobs:
             "@type":"MessageCard",
             "@context":"https://schema.org/extensions",
             "summary":"Fail to merge master into ${{ matrix.branch }} for hevea-stations-api",
-            "title": "hevea-stations-api failed to merge master into ${{ matrix.branch }}",
-            "themeColor":"336699",
+            "title": "[hevea-stations-api] Fail to merge branches : master → ${{ matrix.branch }}",
+            "themeColor":"ff6600",
             "potentialAction":[
               {
                 "@type":"OpenUri",
