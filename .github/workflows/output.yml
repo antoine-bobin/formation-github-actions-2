@@ -55,8 +55,7 @@ jobs:
 #             ]
 #          }
 #          EOF
-#          curl -X POST https://allopneus.webhook.office.com/webhookb2/e4228484-8970-4176-95a0-719bc0f259d8@ac205d14-f9ff-4d7a-8129-aa50d3988c68/IncomingWebhook/b100761b92c841caafaec419b2d9b52a/0f9dd978-347f-4955-8e79-48bd2ae1c980 --header 'Content-Type: application/json' -d @message.json
-
+..
       - name: "Notify merge failure on Teams channel"
         if: failure()
         # JSON format: https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/connectors-using
