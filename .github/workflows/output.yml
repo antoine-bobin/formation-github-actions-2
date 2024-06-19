@@ -27,34 +27,8 @@ jobs:
           git config --global user.name 'allotomation' && \
           git config --global user.email 'serviceaccount.allotomation@allopneus.com' && \
           git merge origin/main --no-ff && \
-          giiiit push origin develop || echo "result="c'est nul" >> $GITHUB_OUTPUT
-
-#      - name: "Notify failure on Teams channel"
-#        if: failure()
-#        # JSON format: https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/connectors-using
-#        run: |
-#          echo "Notify failure on Teams channel"
-#          cat << EOF > message.json
-#          {
-#            "@type":"MessageCard",
-#            "@context":"https://schema.org/extensions",
-#            "summary":"Fail to merge master into ${{ matrix.branch }} for hevea-stations-api",
-#            "title": "[hevea-stations-api] Fail to merge branches : master → ${{ matrix.branch }}",
-#            "themeColor":"ff6600",
-#            "potentialAction":[
-#              {
-#                "@type":"OpenUri",
-#                "name":"Voir le lien",
-#                "targets":[
-#                  {
-#                    "os":"default",
-#                    "uri":"https://rick.roll"
-#                  }
-#                ]
-#              }
-#             ]
-#          }
-#          EOF
+          giiiit push origin develop >> sortie.out 
+          echo "out=$(cat sortie.out)" >> $GITHUB_OUTPUT
 
       - name: "Notify merge failure on Teams channel"
         if: failure()
