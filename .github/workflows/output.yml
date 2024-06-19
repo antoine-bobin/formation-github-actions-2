@@ -33,6 +33,7 @@ jobs:
         if: failure()
         # JSON format: https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/connectors-using
         run: |
+          echo "Notify merge failure on Teams channel"
           cat << EOF > message.json
           {
             "@type": "MessageCard",
