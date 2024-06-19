@@ -27,7 +27,7 @@ jobs:
           git config --global user.name 'allotomation' && \
           git config --global user.email 'serviceaccount.allotomation@allopneus.com' && \
           git merge origin/main --no-ff && \
-          giiiit push origin develop >> $GITHUB_OUTPUT
+          giiiit push origin develop || echo "c'est nul" >> $GITHUB_OUTPUT
 
 #      - name: "Notify failure on Teams channel"
 #        if: failure()
