@@ -23,6 +23,8 @@ jobs:
 
       - name: "Merge master into develop"
         id: merge
+        outputs:
+          sortie: ${{ steps.merge.outputs.out }}
         run: |
           git config --global user.name 'allotomation' && \
           git config --global user.email 'serviceaccount.allotomation@allopneus.com' && \
