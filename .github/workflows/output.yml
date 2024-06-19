@@ -23,14 +23,11 @@ jobs:
 
       - name: "Merge master into develop"
         id: merge
-        outputs:
-          sortie: ${{ steps.merge.outputs.out }}
         run: |
           git config --global user.name 'allotomation' && \
           git config --global user.email 'serviceaccount.allotomation@allopneus.com' && \
           git merge origin/main --no-ff && \
-          giiiit push origin develop >> sortie.out 
-          echo "out=$(cat sortie.out)" >> $GITHUB_OUTPUT
+          giiiit push origin develop
 
       - name: "Notify merge failure on Teams channel"
         if: failure()
@@ -52,13 +49,20 @@ jobs:
                 "name": "Branches:",
                 "value": "master → ${{ matrix.branch }}"
               }, {
-                "name": "Error:",
-                "value": "${{ toJSON(steps.merge.outputs) }}"
-              }, {
                 "name": "Status:",
                 "value": "Failed"
-              }]
-            }]
+              }],
+              "markdown": true,
+          
+            }],
+            "potentialAction": [{
+               "@type": "OpenUri",
+               "name": "View GitHub Actions run",
+               "targets": [{
+                 "os": "default",
+                 "uri": ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+               }]
+             }]
           }
           EOF
           curl -X POST https://allopneus.webhook.office.com/webhookb2/e4228484-8970-4176-95a0-719bc0f259d8@ac205d14-f9ff-4d7a-8129-aa50d3988c68/IncomingWebhook/b100761b92c841caafaec419b2d9b52a/0f9dd978-347f-4955-8e79-48bd2ae1c980 --header 'Content-Type: application/json' -d @message.json
