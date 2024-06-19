@@ -27,7 +27,7 @@ jobs:
           git config --global user.name 'allotomation' && \
           git config --global user.email 'serviceaccount.allotomation@allopneus.com' && \
           git merge origin/main --no-ff && \
-          giiiit push origin develop || echo "c'est nul" >> $GITHUB_OUTPUT
+          giiiit push origin develop >> $GITHUB_OUTPUT
 
 #      - name: "Notify failure on Teams channel"
 #        if: failure()
@@ -77,7 +77,7 @@ jobs:
                 "value": "master → ${{ matrix.branch }}"
               }, {
                 "name": "Error:",
-                "value": "${{ toJSON(steps.merge.outputs.*) }}"
+                "value": "${{ toJSON(steps.merge.outputs) }}"
               }, {
                 "name": "Status:",
                 "value": "Failed"
