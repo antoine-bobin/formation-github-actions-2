@@ -61,7 +61,7 @@ jobs:
                "name": "View GitHub Actions run",
                "targets": [{
                  "os": "default",
-                 "uri": ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+                 "uri": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                }]
              }]
           }
