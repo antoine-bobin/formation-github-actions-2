@@ -35,6 +35,24 @@ jobs:
         run: |
           echo "Notify failure on Teams channel"
           cat << EOF > message.json
-          {"@type":"MessageCard","@context":"https://schema.org/extensions","summary":"Fail to merge master into ${{ matrix.branch }} for hevea-stations-api", "title": "hevea-stations-api failed to merge master into ${{ matrix.branch }}", "themeColor":"00ff00","potentialAction":[{"@type":"OpenUri","name":"Voir le lien","targets":[{"os":"default","uri":"https://rick.roll"}]}]}
+          {
+            "@type":"MessageCard",
+            "@context":"https://schema.org/extensions",
+            "summary":"Fail to merge master into ${{ matrix.branch }} for hevea-stations-api",
+            "title": "hevea-stations-api failed to merge master into ${{ matrix.branch }}",
+            "themeColor":"336699",
+            "potentialAction":[
+              {
+                "@type":"OpenUri",
+                "name":"Voir le lien",
+                "targets":[
+                  {
+                    "os":"default",
+                    "uri":"https://rick.roll"
+                  }
+                ]
+              }
+             ]
+          }
           EOF
           curl -X POST https://allopneus.webhook.office.com/webhookb2/e4228484-8970-4176-95a0-719bc0f259d8@ac205d14-f9ff-4d7a-8129-aa50d3988c68/IncomingWebhook/e02e84a93e124c9fa768a831f267d3c6/0f9dd978-347f-4955-8e79-48bd2ae1c980 --header 'Content-Type: application/json' -d @message.json
