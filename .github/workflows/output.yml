@@ -42,19 +42,16 @@ jobs:
             "sections": [{
               "activityTitle": "[CI/CD] Fail to merge branches",
               "activitySubtitle": "An error occurred when merging master branch.",
-              "facts": [
-                {
-                  "name": "Project:",
-                  "value": "${{ github.event.repository.name }}"
-                },
-                {
-                  "name": "Branches:",
-                  "value": "master → ${{ matrix.branch }}"
-                }, {
-                  "name": "Status:",
-                  "value": "Failed"
-                }
-              ],
+              "facts": [{
+                "name": "Project:",
+                "value": "${{ github.event.repository.name }}"
+              }, {
+                "name": "Branches:",
+                "value": "master → ${{ matrix.branch }}"
+              }, {
+                "name": "Status:",
+                "value": "Failed"
+              }],
               "markdown": true,
             }],
             "potentialAction": [{
