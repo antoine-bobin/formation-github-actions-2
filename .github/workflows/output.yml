@@ -11,60 +11,60 @@ jobs:
       matrix:
         branch: ["develop"]
     steps:
-      - name: "Output github"
-        run: echo "${{ toJSON(github) }}"
+#      - name: "Output github"
+#        run: echo "${{ toJSON(github) }}"
 
-#      - name: "Checkout code from develop"
-#        uses: actions/checkout@v4 # v4.1.0
-#        with:
-#          ref: develop
-##          token: ${{ secrets.CI_KEY }}
-#          fetch-depth: 0
-#
-#      - name: "Merge master into ${{ matrix.branch }}"
-#        run: |
-#          git config --global user.name '${{ vars.BOT_GIT_USER }}' && \
-#          git config --global user.email '${{ vars.BOT_GIT_EMAIL }}' && \
-#          git merge origin/master --no-ff && \
-#          git push origin ${{ matrix.branch }}
-#
-#      - name: "Notify merge failure on Teams channel"
-#        if: failure()
-#        # JSON format: https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/connectors-using
-#        run: |
-#          echo "Notify merge failure on Teams channel"
-#          cat << EOF > message.json
-#          {
-#            "@type": "MessageCard",
-#            "@context": "http://schema.org/extensions",
-#            "themeColor": "0076D7",
-#            "summary": "[CI/CD] ${{ github.repository }}: Fail to merge branches master → ${{ matrix.branch }}",
-#            "sections": [{
-#              "activityTitle": "[CI/CD] Fail to merge branches",
-#              "activitySubtitle": "An error occurred when merging master branch.",
-#              "facts": [
-#                {
-#                  "name": "Project:",
-#                  "value": "${{ github.repository }}"
-#                },
-#                {
-#                  "name": "Branches:",
-#                  "value": "master → ${{ matrix.branch }}"
-#                }, {
-#                  "name": "Status:",
-#                  "value": "Failed"
-#                }
-#              ],
-#              "markdown": true,
-#            }],
-#            "potentialAction": [{
-#               "@type": "OpenUri",
-#               "name": "See more details",
-#               "targets": [{
-#                 "os": "default",
-#                 "uri": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-#               }]
-#             }]
-#          }
-#          EOF
-#          curl -X POST ${{ vars.TEAMS_CHANNEL_suivi_des_mises_en_production }} --header 'Content-Type: application/json' -d @message.json
+      - name: "Checkout code from develop"
+        uses: actions/checkout@v4 # v4.1.0
+        with:
+          ref: develop
+#          token: ${{ secrets.CI_KEY }}
+          fetch-depth: 0
+
+      - name: "Merge master into ${{ matrix.branch }}"
+        run: |
+          git config --global user.name '${{ vars.BOT_GIT_USER }}' && \
+          git config --global user.email '${{ vars.BOT_GIT_EMAIL }}' && \
+          git merge origin/master --no-ff && \
+          git push origin ${{ matrix.branch }}
+
+      - name: "Notify merge failure on Teams channel"
+        if: failure()
+        # JSON format: https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/connectors-using
+        run: |
+          echo "Notify merge failure on Teams channel"
+          cat << EOF > message.json
+          {
+            "@type": "MessageCard",
+            "@context": "http://schema.org/extensions",
+            "themeColor": "0076D7",
+            "summary": "[CI/CD] ${{ github.event.repository.name }}: Fail to merge branches master → ${{ matrix.branch }}",
+            "sections": [{
+              "activityTitle": "[CI/CD] Fail to merge branches",
+              "activitySubtitle": "An error occurred when merging master branch.",
+              "facts": [
+                {
+                  "name": "Project:",
+                  "value": "${{ github.event.repository.name }}"
+                },
+                {
+                  "name": "Branches:",
+                  "value": "master → ${{ matrix.branch }}"
+                }, {
+                  "name": "Status:",
+                  "value": "Failed"
+                }
+              ],
+              "markdown": true,
+            }],
+            "potentialAction": [{
+               "@type": "OpenUri",
+               "name": "See more details",
+               "targets": [{
+                 "os": "default",
+                 "uri": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+               }]
+             }]
+          }
+          EOF
+          curl -X POST ${{ vars.TEAMS_CHANNEL_suivi_des_mises_en_production }} --header 'Content-Type: application/json' -d @message.json
