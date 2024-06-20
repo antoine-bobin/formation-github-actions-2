@@ -66,4 +66,3 @@ jobs:
           }
           EOF
           curl -X POST ${{ vars.TEAMS_CHANNEL_suivi_des_mises_en_production }} --header 'Content-Type: application/json' -d @message.json
-      
