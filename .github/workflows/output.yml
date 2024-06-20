@@ -21,13 +21,12 @@ jobs:
 #          token: ${{ secrets.CI_KEY }}
           fetch-depth: 0
 
-      - name: "Merge master into develop"
-        id: merge
+      - name: "Merge master into ${{ matrix.branch }}"
         run: |
-          git config --global user.name 'allotomation' && \
-          git config --global user.email 'serviceaccount.allotomation@allopneus.com' && \
-          git merge origin/main --no-ff && \
-          git push origin develop
+          git config --global user.name '${{ vars.BOT_GIT_USER }}' && \
+          git config --global user.email '${{ vars.BOT_GIT_EMAIL }}' && \
+          git merge origin/master --no-ff && \
+          git push origin ${{ matrix.branch }}
 
       - name: "Notify merge failure on Teams channel"
         if: failure()
