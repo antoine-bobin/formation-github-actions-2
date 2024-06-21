@@ -21,11 +21,11 @@ jobs:
           #token: ${{ secrets.CI_KEY }}
           fetch-depth: 0
 
-      - name: "Merge master into ${{ matrix.branch }}"
+      - name: "Merge ${{ github.ref_name }} into ${{ matrix.branch }}"
         run: |
           git config --global user.name '${{ vars.BOT_GIT_USER }}' && \
           git config --global user.email '${{ vars.BOT_GIT_EMAIL }}' && \
-          git merge origin/master --no-ff && \
+          git merge origin/${{ github.ref_name }} --no-ff && \
           git push origin ${{ matrix.branch }}
 
       - name: "Notify merge failure on Teams channel"
@@ -38,16 +38,16 @@ jobs:
             "@type": "MessageCard",
             "@context": "http://schema.org/extensions",
             "themeColor": "0076D7",
-            "summary": "[CI/CD] ${{ github.event.repository.name }}: Fail to merge branches master → ${{ matrix.branch }}",
+            "summary": "[CI/CD] ${{ github.event.repository.name }}: Fail to merge branches ${{ github.ref_name }} → ${{ matrix.branch }}",
             "sections": [{
               "activityTitle": "[CI/CD] Fail to merge branches",
-              "activitySubtitle": "An error occurred when merging master branch.",
+              "activitySubtitle": "An error occurred when merging ${{ github.ref_name }} branch.",
               "facts": [{
                 "name": "Project:",
                 "value": "${{ github.event.repository.name }}"
               }, {
                 "name": "Branches:",
-                "value": "master → ${{ matrix.branch }}"
+                "value": "${{ github.ref_name }} → ${{ matrix.branch }}"
               }, {
                 "name": "Status:",
                 "value": "Failed"
