@@ -11,8 +11,8 @@ jobs:
       matrix:
         branch: ["develop"]
     steps:
-#      - name: "Output github"
-#        run: echo "${{ toJSON(github) }}"
+      #- name: "Output github"
+      #  run: echo "${{ toJSON(github) }}"
 
       - name: "Checkout code from develop"
         uses: actions/checkout@v4 # v4.1.0
