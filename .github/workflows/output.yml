@@ -11,14 +11,14 @@ jobs:
       matrix:
         branch: ["develop"]
     steps:
-#      - name: "Output github"
-#        run: echo "${{ toJSON(github) }}"
+      #- name: "Output github"
+      #  run: echo "${{ toJSON(github) }}"
 
       - name: "Checkout code from develop"
         uses: actions/checkout@v4 # v4.1.0
         with:
           ref: develop
-#          token: ${{ secrets.CI_KEY }}
+          #token: ${{ secrets.CI_KEY }}
           fetch-depth: 0
 
       - name: "Merge master into ${{ matrix.branch }}"
